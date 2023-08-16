@@ -2,56 +2,87 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import { v4 as uuidV4 } from 'uuid';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 //Components
-import NavBar from '../NavBar/NavBar';
-
+import NavBar from './NavBar/NavBar';
+import KdbKey from './KbdKey/KbdKey';
 
 //Redux imports
 import { useDispatch, useSelector } from 'react-redux';
-import { writeNote, saveNote } from '../../redux/actions/noteActions';
+import { writeNote, saveNote, editNote } from '../../../redux/actions/noteActions';
+import InfoBar from './InfoBar/InfoBar';
 
-const Key = ({ children }) => {
-    return (
-        <kbd className='text-xs bg-slate-600 text-neutral-100 rounded p-1 mx-2'>
-            {children}
-        </kbd>
-    )
-}
-const CreateNote = () => {
+
+
+const NoteForm = ({ isEditing }) => {
     //React hooks
     const [title, setTitle] = useState("")
     const [text, setText] = useState("")
+    const [oldNote, setOldNote] = useState({});
+
     const navigate = useNavigate();
     const textRef = useRef();
+    const submitRef = useRef();
+
+
+    const { noteId } = useParams();
+
 
     //React redux hooks
     const dispatch = useDispatch();
+    const {allNotes} = useSelector(state => state.notes)
+
 
     //Date and time of creating the note
     const date = new Date().toDateString();
     const time = new Date().toLocaleTimeString();
 
-
+    //On page load
     useEffect(() => {
         textRef.current.focus()
     }, [])
+
+    //If form is in editing mode
+    useEffect(() => {
+        setOldNote(allNotes.get(noteId))
+    }, [isEditing, noteId])
+
+
+    useEffect(() => {
+        if (oldNote) {
+            setText(oldNote.text)
+            setTitle(oldNote.title)
+        }
+    }, [oldNote])
+
+    //END - If form is in editing mode
+
+
+
     function handleNote(e) {
+
         e.preventDefault();
 
         //Unique id of the note , generated when creating a new note
-        const uniqueId = uuidV4();
+        const uniqueId = isEditing ? noteId : uuidV4();
 
         //Note actions
-        dispatch(writeNote(title, text, uniqueId, date, time))
-        dispatch(saveNote())
+        if (text || title) {
+            dispatch(writeNote(title, text, uniqueId, date, time))
+            if (isEditing) {
+                dispatch(editNote(uniqueId))
+            } else {
+                dispatch(saveNote())
+            }
 
-        //Reset input fields
-        setTitle("");
-        setText("");
 
-        //After creating succefully , navigate back to home page
+            //Reset input fields
+            setTitle("");
+            setText("");
+        }
+
+        //After creating succefully navigate back to home page
         navigate("/");
     }
 
@@ -64,14 +95,9 @@ const CreateNote = () => {
                 <form onSubmit={handleNote} className='flex flex-col gap-4'>
                     <div>
                         {
-                            (text ||
-                                !title) && <p className='hidden md:block mb-2 text-xs text-neutral-400'>Press <Key>Shift</Key> + <Key>Enter</Key> to save the note.</p>
+                            (!text || !title) && <p className='hidden md:block mb-2 text-xs text-neutral-400'>Press <KdbKey>Shift</KdbKey> + <KdbKey>Enter</KdbKey> to save the note.</p>
                         }
-                        {
-                            (text || title) && <>
-                                <NavBar />
-                            </>
-                        }
+                        {(text || title) && <NavBar />}
                     </div>
 
 
@@ -83,17 +109,7 @@ const CreateNote = () => {
                     />
 
 
-                    <div className='flex gap-2'>
-                        <p className='text-xs text-neutral-500 flex gap-2'>
-                            <span>{date}</span>
-                            <span>{time}</span>
-                        </p>
-                        {/* Empty span is used for gray vertical bar  */}
-                        <span className='p-[1px] font-extralight bg-neutral-500'></span>
-
-                        <p className='text-xs text-neutral-500'>{text.length} characters</p>
-                    </div>
-
+                    <InfoBar date={date} time={time} text={text} />
 
                     <textarea name="text" id="text"
                         ref={textRef}
@@ -108,4 +124,4 @@ const CreateNote = () => {
     )
 }
 
-export default CreateNote
+export default NoteForm

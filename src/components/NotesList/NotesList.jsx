@@ -19,10 +19,10 @@ import { Link } from 'react-router-dom';
 const NotesList = () => {
     const [search, setSearch] = useState("");
     const { allNotes } = useSelector(state => state.notes)
-    console.log(allNotes);
     function handleSearch(e) {
         e.preventDefault();
         console.log("Searching...");
+        console.log(allNotes.size)
     }
 
 
@@ -47,13 +47,11 @@ const NotesList = () => {
                 </div>
                 <div className=' w-full min-h-screen flex flex-col gap-4 p-2 px-4'>
                     {
-                        allNotes && allNotes.map(note => {
+                        allNotes && Array.from(allNotes.values()).map(note => {
                             return (
-                                <Link to={`/edit/${note.id}`}>
-                                    <NoteCard note={note} id={note.id} text={note.text} title={note.title} date={note.date} time={note.time} key={note.id} />
-                                </Link>
+                                <NoteCard {...note} key={note.id}/>
                             )
-                        })
+                        }).reverse()
                     }
                 </div>
             </div>

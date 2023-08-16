@@ -29,3 +29,10 @@ export const editNote = (id) => {
         payload: { id },
     }
 }
+
+export const deleteNote = (id) => {
+    return {
+        type: NOTES.deleteNote,
+        payload: { id },
+    }
+}

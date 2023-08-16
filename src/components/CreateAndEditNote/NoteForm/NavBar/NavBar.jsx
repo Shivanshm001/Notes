@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 
 import { GrRedo, GrSave, GrUndo, GrClose } from 'react-icons/gr'
-import IconButton from '../IconButton/IconButton'
+import IconButton from './IconButton/IconButton'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -9,14 +9,7 @@ const NavBar = () => {
     const saveBtnRef = useRef();
     const navigate = useNavigate();
 
-    function focusOnSaveButton() {
-        document.addEventListener("keydown", (e) => {
-            if (e.shiftKey && e.key === "Enter") {
-                saveBtnRef.current.focus();
-            }
-        })
-    }
-    focusOnSaveButton();
+
 
     return (
         <div className='flex justify-between border-y border-y-gray-200 py-2'>

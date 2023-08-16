@@ -1,9 +1,9 @@
 import { NOTES } from "../actions/noteActions";
 
 const initialState = {
-    allNotes: [
-
-    ],
+    redoStack: [],
+    undoStack: [],
+    allNotes: new Map(),
     note: {
         "title": "",
         "text": "",
@@ -24,15 +24,40 @@ export const noteReducer = (state = initialState, action) => {
             note: { ...payload },
         }
 
-        case NOTES.saveNote: return {
-            ...state,
-            allNotes: [...state.allNotes, state.note]
+        case NOTES.saveNote: {
+            const newNote = {
+                ...state.note,
+            }
+            const newAllNotes = new Map(state.allNotes);
+            newAllNotes.set(newNote.id, newNote);
+            return {
+                ...state,
+                allNotes: newAllNotes
+
+            }
         }
 
         case NOTES.editNote: {
-            const tempNote = state.allNotes.find(n => n.id === payload.id)
-            return {
-                ...state,
+            const updatedNotes = new Map(state.allNotes);
+            const updateNote = state.note;
+
+            if (updatedNotes.has(updateNote.id)) {
+                updatedNotes.set(payload.id, updateNote)
+                return {
+                    ...state,
+                    allNotes: updatedNotes
+                }
+            }
+        };
+
+        case NOTES.deleteNote: {
+            const notes = new Map(state.allNotes);
+            if (notes.has(payload.id)) {
+                notes.delete(payload.id)
+                return {
+                    ...state,
+                    allNotes: notes,
+                }
             }
         }
         default: return state;
