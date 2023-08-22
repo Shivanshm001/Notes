@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
-import { deleteNote } from '../../redux/actions/noteActions';
+import { deleteNote } from '../../../redux/actions/noteActions';
 import { AiOutlineDelete } from 'react-icons/ai';
 
 const NoteCard = ({ id, title, text, date, time }) => {

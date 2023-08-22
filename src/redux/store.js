@@ -5,5 +5,5 @@ import { applyMiddleware, legacy_createStore } from "redux";
 import rootReducer from './rootReducer';
 import logger from "redux-logger";
 
-const store = legacy_createStore(rootReducer, composeWithDevTools(applyMiddleware(logger)))
+const store = legacy_createStore(rootReducer, composeWithDevTools())
 export default store;

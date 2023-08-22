@@ -10,7 +10,7 @@ import KdbKey from './KbdKey/KbdKey';
 
 //Redux imports
 import { useDispatch, useSelector } from 'react-redux';
-import { writeNote, saveNote, editNote } from '../../../redux/actions/noteActions';
+import { writeNote, saveNote, editNote } from '../../../../redux/actions/noteActions';
 import InfoBar from './InfoBar/InfoBar';
 
 
@@ -23,7 +23,6 @@ const NoteForm = ({ isEditing }) => {
 
     const navigate = useNavigate();
     const textRef = useRef();
-    const submitRef = useRef();
 
 
     const { noteId } = useParams();
@@ -83,7 +82,7 @@ const NoteForm = ({ isEditing }) => {
         }
 
         //After creating succefully navigate back to home page
-        navigate("/");
+        navigate("/notes");
     }
 
 
@@ -95,9 +94,11 @@ const NoteForm = ({ isEditing }) => {
                 <form onSubmit={handleNote} className='flex flex-col gap-4'>
                     <div>
                         {
-                            (!text || !title) && <p className='hidden md:block mb-2 text-xs text-neutral-400'>Press <KdbKey>Shift</KdbKey> + <KdbKey>Enter</KdbKey> to save the note.</p>
+                            (text || title) && <p className='hidden md:block mb-2 text-xs text-neutral-400'>Press <KdbKey>Shift</KdbKey> + <KdbKey>Enter</KdbKey> to save the note.</p>
                         }
-                        {(text || title) && <NavBar />}
+                        <div className={`${(text || title)?"block":"hidden"}`}>
+                            <NavBar />
+                        </div>
                     </div>
 
 

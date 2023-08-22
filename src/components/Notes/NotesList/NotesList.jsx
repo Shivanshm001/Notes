@@ -8,15 +8,23 @@ import { BiSearch } from 'react-icons/bi';
 import NoteCard from '../NoteCard/NoteCard'
 import { IconContext } from 'react-icons';
 import { Link } from 'react-router-dom';
+import { useTitle } from '../../../hooks/useTitle';
 
 
-
+const CreateNoteButton = () => {
+    return <Link to={"/notes/create"} className='fixed bottom-8 right-8 rounded-full overflow-hidden'>
+        <button className='bg-yellow-400 p-4 rounded-full text-lg font-bold'>
+            <GrAdd />
+        </button>
+    </Link>
+}
 
 
 
 
 
 const NotesList = () => {
+    useTitle("Notes")
     const [search, setSearch] = useState("");
     const { allNotes } = useSelector(state => state.notes)
     function handleSearch(e) {
@@ -49,17 +57,13 @@ const NotesList = () => {
                     {
                         allNotes && Array.from(allNotes.values()).map(note => {
                             return (
-                                <NoteCard {...note} key={note.id}/>
+                                <NoteCard {...note} key={note.id} />
                             )
                         }).reverse()
                     }
                 </div>
             </div>
-            <Link to={"/create"} className='fixed bottom-8 right-8 rounded-full overflow-hidden'>
-                <button className='bg-yellow-400 p-4 rounded-full text-lg font-bold'>
-                    <GrAdd />
-                </button>
-            </Link>
+           <CreateNoteButton />
         </>
     )
 }
