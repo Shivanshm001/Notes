@@ -11,7 +11,6 @@ const NavBar = () => {
     const saveBtnRef = useRef();
     const navigate = useNavigate();
 
-    console.log(saveBtnRef)
     useEffect(() => {
         document.body.addEventListener('keydown', (e) => {
             if (e.shiftKey && e.key === "Enter") {

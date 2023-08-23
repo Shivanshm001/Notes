@@ -3,14 +3,13 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import { deleteNote } from '../../../redux/actions/noteActions';
-import { AiOutlineDelete } from 'react-icons/ai';
+import DeleteButton from '../../SharedComponents/DeleteButton/DeleteButton';
 
 const NoteCard = ({ id, title, text, date, time }) => {
   const dispatch = useDispatch();
 
   function handleDelete(e) {
     e.stopPropagation();
-    console.log("Delete")
     dispatch(deleteNote(id));
   }
   return (
@@ -29,9 +28,7 @@ const NoteCard = ({ id, title, text, date, time }) => {
       </Link>
 
       {/* Delete button  */}
-      <div>
-        <button className='border rounded border-gray-200 absolute top-2 right-2 text-lg' onClick={handleDelete}><AiOutlineDelete /></button>
-      </div>
+      <DeleteButton handleDelete={handleDelete}/>
     </div>
   )
 }

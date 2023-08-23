@@ -10,7 +10,6 @@ const initialState = {
         "id": "",
         "date": "",
         "time": "",
-        "type": "",
     }
 };
 
