@@ -28,7 +28,9 @@ const NoteCard = ({ id, title, text, date, time }) => {
       </Link>
 
       {/* Delete button  */}
-      <DeleteButton handleDelete={handleDelete}/>
+      <div className='absolute top-2 right-2'>
+        <DeleteButton handleDelete={handleDelete} />
+      </div>
     </div>
   )
 }

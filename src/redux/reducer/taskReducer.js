@@ -1,9 +1,54 @@
+import { TASKS } from "../actions/taskActions";
+
 const initialState = {
-    allTasks: new Map(),
+    allTasks: [
+        {
+            id: "adfadsss",
+            completed: false,
+            text: "Drink some coffee",
+            date: new Date().getFullYear(),
+            time: new Date().getTime(),
+        },
+        {
+            id: "adfadss",
+            completed: false,
+            text: "Drink some coffee",
+            date: new Date().getFullYear(),
+            time: new Date().getTime()
+        },
+        {
+            id: "adfass",
+            completed: false,
+            text: "Drink some coffee",
+            date: new Date().getFullYear(),
+            time: new Date().getTime()
+        },
+        {
+            id: "aadsss",
+            completed: false,
+            text: "Drink some coffee",
+            date: new Date().getFullYear(),
+            time: new Date().getTime(),
+        },
+        {
+            id: "fadsss",
+            completed: false,
+            text: "Drink some coffee",
+            date: new Date().getFullYear(),
+            time: new Date().getTime(),
+        },
+        {
+            id: "sss",
+            completed: false,
+            text: "Drink some coffee",
+            date: new Date().getFullYear(),
+            time: new Date().getTime(),
+        }
+    ],
     task: {
         id: "",
-        completed: false,
-        title: "",
+        isComplete: false,
+        text: "",
         date: "",
         time: "",
     }
@@ -11,9 +56,14 @@ const initialState = {
 
 
 export const taskReducer = (state = initialState, action) => {
-    const {type, payload} = action;
+    const { type, payload } = action;
 
     switch (type) {
+        case TASKS.markComplete: return {
+            ...state,
+            ...state.task,
+            isComplete: payload.isComplete
+        };
         default: return state;
     }
-}
+};

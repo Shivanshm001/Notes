@@ -5,6 +5,8 @@ export const NOTES = {
     "deleteNote": "DELETE_NOTE",
     "editNote": "EDIT_NOTE",
     "saveNote": "SAVE_NOTE",
+    "updateSearchQuery": "UPDATE_SEARCH_QUERY",
+    "filterNotes": "FILTER_NOTES"
 };
 
 
@@ -34,5 +36,19 @@ export const deleteNote = (id) => {
     return {
         type: NOTES.deleteNote,
         payload: { id },
+    }
+}
+
+
+export const updateSearchQuery = (query) => {
+    return {
+        type: NOTES.updateSearchQuery,
+        payload: { query },
+    }
+}
+
+export const filterNotes = () => {
+    return {
+        type: NOTES.filterNotes,
     }
 }

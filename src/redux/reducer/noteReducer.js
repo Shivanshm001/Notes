@@ -4,6 +4,8 @@ const initialState = {
     redoStack: [],
     undoStack: [],
     allNotes: new Map(),
+    searchQuery: "",
+    filteredNotes: new Map(),
     note: {
         "title": "",
         "text": "",
@@ -59,6 +61,13 @@ export const noteReducer = (state = initialState, action) => {
                 }
             }
         }
+
+        case NOTES.updateSearchQuery: return {
+            ...state,
+            searchQuery: payload.query
+        }
+
+
         default: return state;
     };
 }

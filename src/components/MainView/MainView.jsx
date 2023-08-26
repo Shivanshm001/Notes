@@ -3,13 +3,16 @@ import { Outlet, useLocation } from 'react-router-dom'
 
 import { BiNotepad, BiListUl } from 'react-icons/bi';
 import Li from './Li';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { useSelector } from 'react-redux';
 
 
 
 const MainView = () => {
   const location = useLocation();
 
-  
+
+
 
   return (
     <div className='min-w-full min-h-screen bg-slate-900 sm:grid place-items-center'>
@@ -18,8 +21,8 @@ const MainView = () => {
           (location.pathname === "/notes" || location.pathname === "/tasks") &&
           <div className='bg-white flex justify-center items-center p-2'>
             <ul className='flex justify-center items-center gap-4 p-1 border rounded border-gray-500 w-1/2'>
-              <Li to={"/notes"} icon={<BiNotepad />} />
-              <Li to={"/tasks"} icon={<BiListUl />} />
+              <Li to={"/notes"} icon={<BiNotepad />} title={"Notes"} />
+              <Li to={"/tasks"} icon={<BiListUl />} title={"Tasks"} />
             </ul>
           </div>
         }

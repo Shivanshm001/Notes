@@ -4,17 +4,23 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import Notes from './components/Notes/Notes'
 import NotesList from './components/Notes/NotesList/NotesList'
 import MainView from './components/MainView/MainView'
-import CreateNote from './components/Notes/CreateAndEditNote/CreateNote/CreateNote'
-import EditNote from './components/Notes/CreateAndEditNote/EditNote/EditNote'
+import CreateNote from './components/Notes/CreateNote/CreateNote'
+import EditNote from './components/Notes/EditNote/EditNote'
 
 //Tasks
 import Tasks from './components/Tasks/Tasks'
-//Redux
-import { useDispatch, useSelector } from 'react-redux'
 import TasksList from './components/Tasks/TasksList/TasksList'
+import CreateTask from './components/Tasks/CreateTask/CreateTask'
+import EditTask from './components/Tasks/EditTask/EditTask'
+
+
+
+//Redux
+import { useSelector } from 'react-redux'
 
 const App = () => {
   const allNotes = useSelector(state => state.notes.allNotes);
+  const allTasks = useSelector(state => state.tasks.allTasks);
 
 
   return (
@@ -32,6 +38,11 @@ const App = () => {
 
         <Route path='/tasks' element={<Tasks />}>
           <Route path='/tasks' element={<TasksList />} />
+          <Route path='/tasks/create' element={<CreateTask />} />
+          {
+            allTasks &&
+            <Route path='/tasks/edit/:taskId' element={<EditTask />} />
+          }
         </Route>
       </Route>
     </Routes>

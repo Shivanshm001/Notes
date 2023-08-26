@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 
 import NoteCard from '../NoteCard/NoteCard'
-import { useTitle } from '../../../hooks/useTitle';
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle';
 import SearchBar from './SearchBar/SearchBar';
 import CreateButton from '../../SharedComponents/CreateButton/CreateButton';
 
@@ -16,7 +16,7 @@ import CreateButton from '../../SharedComponents/CreateButton/CreateButton';
 
 
 const NotesList = () => {
-    useTitle("Notes")
+    useDocumentTitle("Notes")
     const { allNotes } = useSelector(state => state.notes)
 
 
@@ -31,14 +31,18 @@ const NotesList = () => {
 
                 <div className=' w-full min-h-screen flex flex-col gap-4 p-2 px-4'>
                     {
-                        allNotes && Array.from(allNotes.values()).map(note => {
-                            return (
-                                <NoteCard {...note} key={note.id} />
-                            )
-                        }).reverse()
+                        allNotes
+                            ? Array.from(allNotes.values()).map(note => {
+                                return (
+                                    <NoteCard {...note} key={note.id} />
+                                )
+                            }).reverse()
+                            : <div>
+                                <p>Create new note.</p>
+                            </div>
                     }
                 </div>
-           <CreateButton type={"notes"} />
+                <CreateButton type={"notes"} />
             </div>
         </>
     )

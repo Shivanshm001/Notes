@@ -2,6 +2,8 @@ import React from 'react'
 import { useState } from 'react';
 import { IconContext } from 'react-icons';
 import { BiSearch } from 'react-icons/bi';
+import { useDispatch, useSelector } from 'react-redux';
+import { filterNotes, updateSearchQuery } from '../../../../redux/actions/noteActions';
 
 
 
@@ -9,10 +11,20 @@ import { BiSearch } from 'react-icons/bi';
 const SearchBar = () => {
     const [search, setSearch] = useState("");
 
+    const {
+        allNotes,
+        filteredNotes,
+        searchQuery
+    } = useSelector(state => state.notes)
+
+    const dispatch = useDispatch();
+
+
     function handleSearch(e) {
         e.preventDefault();
-        console.log("Searching...");
-        console.log(allNotes.size)
+
+        dispatch(updateSearchQuery(search));
+        dispatch(filterNotes());
     }
 
 
@@ -28,7 +40,7 @@ const SearchBar = () => {
             </div>
 
             <div className='w-full'>
-                <input type="text" name="search" id="search" placeholder='Search'
+                <input type="text" name="search" id="search" placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)}
                     className='placeholder:text-neutral-500 bg-transparent outline-none w-full px-2 py-1 text-sm font-semibold tracking-wide' />
             </div>
         </form>

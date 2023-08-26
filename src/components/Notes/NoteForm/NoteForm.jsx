@@ -10,9 +10,8 @@ import KdbKey from './KbdKey/KbdKey';
 
 //Redux imports
 import { useDispatch, useSelector } from 'react-redux';
-import { writeNote, saveNote, editNote } from '../../../../redux/actions/noteActions';
+import { writeNote, saveNote, editNote } from '../../../redux/actions/noteActions';
 import InfoBar from './InfoBar/InfoBar';
-
 
 
 const NoteForm = ({ isEditing }) => {
@@ -123,6 +122,7 @@ const NoteForm = ({ isEditing }) => {
             </div>
         </>
     )
-}
+};
 
-export default NoteForm
+
+export default NoteForm;
