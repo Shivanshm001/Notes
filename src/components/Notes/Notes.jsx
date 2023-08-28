@@ -1,12 +1,10 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-const Notes = () => {
+export function Notes() {
   return (
     <>
-        <Outlet />
+      <Outlet />
     </>
   )
 }
-
-export default Notes

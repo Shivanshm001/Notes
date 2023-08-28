@@ -45,6 +45,8 @@ const initialState = {
             time: new Date().getTime(),
         }
     ],
+
+    completedTasks: [],
     task: {
         id: "",
         isComplete: false,

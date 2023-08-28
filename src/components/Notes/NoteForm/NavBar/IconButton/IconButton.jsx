@@ -2,7 +2,7 @@ import React from 'react'
 import { IconContext } from 'react-icons'
 
 
-const IconButton = ({ type, onClick, icon, title, refValue }) => {
+export function IconButton({ type, onClick, icon, title, refValue }) {
 
     return (
         <IconContext.Provider value={{ className: "text-xl" }}>
@@ -12,5 +12,3 @@ const IconButton = ({ type, onClick, icon, title, refValue }) => {
         </IconContext.Provider>
     )
 }
-
-export default IconButton

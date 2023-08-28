@@ -2,13 +2,13 @@ import React from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 
 import { BiNotepad, BiListUl } from 'react-icons/bi';
-import Li from './Li';
+import { Li } from './Li';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { useSelector } from 'react-redux';
 
 
 
-const MainView = () => {
+export function MainView() {
   const location = useLocation();
 
 
@@ -31,5 +31,3 @@ const MainView = () => {
     </div>
   )
 }
-
-export default MainView

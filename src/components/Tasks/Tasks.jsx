@@ -1,12 +1,10 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-const Tasks = () => {
+export function Tasks() {
   return (
     <>
-        <Outlet />
+      <Outlet />
     </>
   )
 }
-
-export default Tasks

@@ -1,11 +1,17 @@
 import React from 'react'
 
 import { Link } from 'react-router-dom';
+import { DeleteButton } from '../../SharedComponents/DeleteButton/DeleteButton';
+
+
 import { useDispatch } from 'react-redux'
 import { deleteNote } from '../../../redux/actions/noteActions';
-import DeleteButton from '../../SharedComponents/DeleteButton/DeleteButton';
 
-const NoteCard = ({ id, title, text, date, time }) => {
+
+
+
+
+export function NoteCard({ id, title, text, date, time }) {
   const dispatch = useDispatch();
 
   function handleDelete(e) {
@@ -32,7 +38,5 @@ const NoteCard = ({ id, title, text, date, time }) => {
         <DeleteButton handleDelete={handleDelete} />
       </div>
     </div>
-  )
-}
-
-export default NoteCard
+  );
+};

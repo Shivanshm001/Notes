@@ -5,19 +5,19 @@ import { v4 as uuidV4 } from 'uuid';
 import { useNavigate, useParams } from 'react-router-dom';
 
 //Components
-import NavBar from './NavBar/NavBar';
-import KdbKey from './KbdKey/KbdKey';
+import { NavBar } from './NavBar/NavBar';
+import { KdbKey } from './KbdKey/KbdKey';
+import { InfoBar } from './InfoBar/InfoBar';
 
 //Redux imports
 import { useDispatch, useSelector } from 'react-redux';
 import { writeNote, saveNote, editNote } from '../../../redux/actions/noteActions';
-import InfoBar from './InfoBar/InfoBar';
 
 
-const NoteForm = ({ isEditing }) => {
+export function NoteForm({ isEditing }) {
     //React hooks
-    const [title, setTitle] = useState("")
-    const [text, setText] = useState("")
+    const [title, setTitle] = useState("");
+    const [text, setText] = useState("");
     const [oldNote, setOldNote] = useState({});
 
     const navigate = useNavigate();
@@ -29,7 +29,7 @@ const NoteForm = ({ isEditing }) => {
 
     //React redux hooks
     const dispatch = useDispatch();
-    const {allNotes} = useSelector(state => state.notes)
+    const { allNotes } = useSelector(state => state.notes);
 
 
     //Date and time of creating the note
@@ -38,26 +38,23 @@ const NoteForm = ({ isEditing }) => {
 
     //On page load
     useEffect(() => {
-        textRef.current.focus()
-    }, [])
+        textRef.current.focus();
+    }, []);
 
     //If form is in editing mode
     useEffect(() => {
-        setOldNote(allNotes.get(noteId))
-    }, [isEditing, noteId])
+        setOldNote(allNotes.get(noteId));
+    }, [isEditing, noteId]);
 
 
     useEffect(() => {
         if (oldNote) {
-            setText(oldNote.text)
-            setTitle(oldNote.title)
+            setText(oldNote.text);
+            setTitle(oldNote.title);
         }
-    }, [oldNote])
+    }, [oldNote]);
 
     //END - If form is in editing mode
-
-
-
     function handleNote(e) {
 
         e.preventDefault();
@@ -67,11 +64,11 @@ const NoteForm = ({ isEditing }) => {
 
         //Note actions
         if (text || title) {
-            dispatch(writeNote(title, text, uniqueId, date, time))
+            dispatch(writeNote(title, text, uniqueId, date, time));
             if (isEditing) {
-                dispatch(editNote(uniqueId))
+                dispatch(editNote(uniqueId));
             } else {
-                dispatch(saveNote())
+                dispatch(saveNote());
             }
 
 
@@ -92,10 +89,8 @@ const NoteForm = ({ isEditing }) => {
                 {/* Form covers the whole page  */}
                 <form onSubmit={handleNote} className='flex flex-col gap-4'>
                     <div>
-                        {
-                            (text || title) && <p className='hidden md:block mb-2 text-xs text-neutral-400'>Press <KdbKey>Shift</KdbKey> + <KdbKey>Enter</KdbKey> to save the note.</p>
-                        }
-                        <div className={`${(text || title)?"block":"hidden"}`}>
+                        {(text || title) && <p className='hidden md:block mb-2 text-xs text-neutral-400'>Press <KdbKey>Shift</KdbKey> + <KdbKey>Enter</KdbKey> to save the note.</p>}
+                        <div className={`${(text || title) ? "block" : "hidden"}`}>
                             <NavBar />
                         </div>
                     </div>
@@ -105,8 +100,7 @@ const NoteForm = ({ isEditing }) => {
                     <input type="text" placeholder='Title'
                         className='text-2xl outline-none w-full bg-transparent'
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                    />
+                        onChange={(e) => setTitle(e.target.value)} />
 
 
                     <InfoBar date={date} time={time} text={text} />
@@ -121,8 +115,6 @@ const NoteForm = ({ isEditing }) => {
                 </form>
             </div>
         </>
-    )
-};
+    );
+}
 
-
-export default NoteForm;

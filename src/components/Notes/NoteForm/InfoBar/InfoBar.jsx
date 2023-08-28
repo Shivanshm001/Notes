@@ -1,7 +1,7 @@
 import React from 'react'
 import { GrAdd } from 'react-icons/gr';
 
-const InfoBar = ({ date, time, text }) => {
+export function InfoBar({ date, time, text }) {
     return (
         <div className='flex gap-2 justify-between items-baseline'>
             <div className='flex gap-2 items-center justify-center'>
@@ -18,7 +18,5 @@ const InfoBar = ({ date, time, text }) => {
                 <button type='button' className='border border-gray-400 rounded p-1 bg-gray-200 active:scale-90 '><GrAdd /></button>
             </div> */}
         </div>
-    )
+    );
 }
-
-export default InfoBar

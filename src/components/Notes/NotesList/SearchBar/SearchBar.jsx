@@ -8,14 +8,12 @@ import { filterNotes, updateSearchQuery } from '../../../../redux/actions/noteAc
 
 
 
-const SearchBar = () => {
+export function SearchBar() {
     const [search, setSearch] = useState("");
 
     const {
-        allNotes,
-        filteredNotes,
-        searchQuery
-    } = useSelector(state => state.notes)
+        allNotes, filteredNotes, searchQuery
+    } = useSelector(state => state.notes);
 
     const dispatch = useDispatch();
 
@@ -45,7 +43,5 @@ const SearchBar = () => {
             </div>
         </form>
 
-    )
+    );
 }
-
-export default SearchBar
