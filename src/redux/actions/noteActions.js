@@ -11,7 +11,7 @@ export const NOTES = {
 
 
 
-export const writeNote = (title, text, id, date, time) => {
+export function writeNote(title, text, id, date, time){
     return {
         type: NOTES.writeNote,
         payload: { title, text, id, date, time },
@@ -19,20 +19,20 @@ export const writeNote = (title, text, id, date, time) => {
 };
 
 
-export const saveNote = () => {
+export function saveNote(){
     return {
         type: NOTES.saveNote,
     }
 };
 
-export const editNote = (id) => {
+export function editNote(id){
     return {
         type: NOTES.editNote,
         payload: { id },
     }
 }
 
-export const deleteNote = (id) => {
+export function deleteNote(id){
     return {
         type: NOTES.deleteNote,
         payload: { id },
@@ -40,14 +40,15 @@ export const deleteNote = (id) => {
 }
 
 
-export const updateSearchQuery = (query) => {
+export function updateSearchQuery(query){
     return {
         type: NOTES.updateSearchQuery,
         payload: { query },
     }
 }
 
-export const filterNotes = () => {
+
+export function filterNotes(){
     return {
         type: NOTES.filterNotes,
     }

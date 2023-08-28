@@ -1,45 +1,12 @@
 import { TASKS } from "../actions/taskActions";
 
 const initialState = {
-    allTasks: [
-       
-        {
-            id: "adfass",
-            completed: false,
-            text: "Drink some coffee",
-            date: new Date().getFullYear(),
-            time: new Date().getTime()
-        },
-        {
-            id: "aadsss",
-            completed: false,
-            text: "Drink some coffee",
-            date: new Date().getFullYear(),
-            time: new Date().getTime(),
-        },
-        {
-            id: "fadsss",
-            completed: false,
-            text: "Drink some coffee",
-            date: new Date().getFullYear(),
-            time: new Date().getTime(),
-        },
-        {
-            id: "sss",
-            completed: false,
-            text: "Drink some coffee",
-            date: new Date().getFullYear(),
-            time: new Date().getTime(),
-        }
-    ],
-
-    completedTasks: [],
+    pendingTasks: new Map(),
+    completedTasks: new Map(),
     task: {
         id: "",
-        isComplete: false,
+        type: "pending",
         text: "",
-        date: "",
-        time: "",
     }
 }
 
@@ -48,11 +15,55 @@ export const taskReducer = (state = initialState, action) => {
     const { type, payload } = action;
 
     switch (type) {
-        case TASKS.markComplete: return {
+        case TASKS.markComplete: {
+            
+        }
+
+        case TASKS.writeTask: return {
             ...state,
-            ...state.task,
-            isComplete: payload.isComplete
+            task: { ...payload }
+        }
+
+        case TASKS.saveTask: {
+            const newTask = { ...state.task }
+            const newTasks = new Map(state.pendingTasks);
+
+            newTasks.set(newTask.id, newTask);
+
+            return {
+                ...state,
+                pendingTasks: newTasks
+            }
+        }
+
+        case TASKS.deleteTask: {
+            const allPendingTasks = new Map(state.pendingTasks);
+            const allCompletedTasks = new Map(state.completedTasks);
+
+            if (payload.type === "pending") {
+                if (allPendingTasks.has(payload.id)) {
+                    allPendingTasks.delete(payload.id)
+                }
+
+                return {
+                    ...state,
+                    pendingTasks: allPendingTasks
+                }
+            }
+            else if (payload.type === "complete") {
+                if (allCompletedTasks.has(payload.id)) {
+                    allCompletedTasks.delete(payload.id);
+                }
+                return {
+                    ...state,
+                    completedTasks: allCompletedTasks
+                }
+            }
+            else return state;
         };
+
+
+
         default: return state;
     }
 };

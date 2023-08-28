@@ -44,7 +44,7 @@ export function TaskCard({ id, text, date, time }) {
   return (
 
 
-    <div className={`flex flex-col justify-between gap-1.5 ${completed ? "bg-neutral-200" : "bg-neutral-100"} shadow-md shadow-gray-100 px-4 py-2 rounded-lg max-h-[50px] min-h-[50px]`}>
+    <div className={`flex flex-col justify-between gap-1.5 ${completed ? "bg-neutral-300 shadow-none" : "bg-neutral-100 shadow-md"}  shadow-gray-100 px-4 py-2 rounded-lg max-h-[50px] min-h-[50px]`}>
 
       <div className='flex justify-between  gap-4  items-baseline p-2'>
 
