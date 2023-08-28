@@ -14,10 +14,11 @@ export function markComplete(id) {
     }
 };
 
-export function writeTask(task, id) {
+export function writeTask(text, id) {
+    console.log("Write task", text)
     return {
         type: TASKS.writeTask,
-        payload: { task, id }
+        payload: { text, id }
     }
 }
 

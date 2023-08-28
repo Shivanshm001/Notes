@@ -16,7 +16,23 @@ export const taskReducer = (state = initialState, action) => {
 
     switch (type) {
         case TASKS.markComplete: {
-            
+            const allPendingTasks = new Map(state.pendingTasks);
+            const allCompletedTasks = new Map(state.completedTasks);
+
+            const task = allPendingTasks.get(payload.id);
+
+            if (task) {
+                task.type = "complete";
+                allCompletedTasks.set(task.id, task);
+                allPendingTasks.delete(task.id);
+                return {
+                    ...state,
+                    pendingTasks: allPendingTasks,
+                    completedTasks: allCompletedTasks,
+                }
+            }
+
+            else return state;
         }
 
         case TASKS.writeTask: return {
