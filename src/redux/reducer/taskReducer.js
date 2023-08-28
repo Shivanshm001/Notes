@@ -2,20 +2,7 @@ import { TASKS } from "../actions/taskActions";
 
 const initialState = {
     allTasks: [
-        {
-            id: "adfadsss",
-            completed: false,
-            text: "Drink some coffee",
-            date: new Date().getFullYear(),
-            time: new Date().getTime(),
-        },
-        {
-            id: "adfadss",
-            completed: false,
-            text: "Drink some coffee",
-            date: new Date().getFullYear(),
-            time: new Date().getTime()
-        },
+       
         {
             id: "adfass",
             completed: false,

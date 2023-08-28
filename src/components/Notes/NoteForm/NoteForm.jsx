@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 //Components
 import { NavBar } from './NavBar/NavBar';
-import { KdbKey } from './KbdKey/KbdKey';
+import { KbdKey } from './KbdKey/KbdKey';
 import { InfoBar } from './InfoBar/InfoBar';
 
 //Redux imports
@@ -89,7 +89,7 @@ export function NoteForm({ isEditing }) {
                 {/* Form covers the whole page  */}
                 <form onSubmit={handleNote} className='flex flex-col gap-4'>
                     <div>
-                        {(text || title) && <p className='hidden md:block mb-2 text-xs text-neutral-400'>Press <KdbKey>Shift</KdbKey> + <KdbKey>Enter</KdbKey> to save the note.</p>}
+                        {(text || title) && <p className='hidden md:block mb-2 text-xs text-neutral-400'>Press <KbdKey>Shift</KbdKey> + <KbdKey>Enter</KbdKey> to save the note.</p>}
                         <div className={`${(text || title) ? "block" : "hidden"}`}>
                             <NavBar />
                         </div>

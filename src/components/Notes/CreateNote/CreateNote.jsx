@@ -3,7 +3,7 @@ import React from 'react';
 import { useDocumentTitle } from '../../../hooks/useDocumentTitle';
 
 
-import NoteForm  from '../NoteForm/NoteForm';
+import {NoteForm}  from '../NoteForm/NoteForm';
 
 
 export function CreateNote() {
