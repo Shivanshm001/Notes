@@ -68,14 +68,16 @@ export const noteReducer = (state = initialState, action) => {
         }
 
         case NOTES.filterNotes: {
+            console.log("Filter")
             const allNotes = new Map(state.allNotes);
             const filteredNotes = new Map();
             if (state.searchQuery) {
                 const notes = allNotes.values();
+                const query = state.searchQuery.toLowerCase();
                 const filteredNotesArray = Array.from(notes).filter(note => {
                     if (note){
-                        if(note.title) return note.title.toLowerCase().includes(state.searchQuery);
-                        if(note.text) return note.text.toLowerCase().includes(state.searchQuery);
+                        if(note.title) return note.title.toLowerCase().includes(query);
+                        if(note.text) return note.text.toLowerCase().includes(query);
                     }
                 });
 

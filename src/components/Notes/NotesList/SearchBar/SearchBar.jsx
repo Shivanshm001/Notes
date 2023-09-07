@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { IconContext } from 'react-icons';
 import { BiSearch } from 'react-icons/bi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { filterNotes, updateSearchQuery } from '../../../../redux/actions/noteActions';
 
 
@@ -16,6 +16,7 @@ export function SearchBar() {
 
 
     useEffect(() => {
+        console.log("Searching...");
         dispatch(updateSearchQuery(search));
         dispatch(filterNotes());
     }, [search])
