@@ -60,17 +60,15 @@ export function NoteForm({ isEditing }) {
         e.preventDefault();
 
         //Unique id of the note , generated when creating a new note
-        const uniqueId = isEditing ? noteId : uuidV4();
+        const uniqueId = (isEditing && noteId) ? noteId : uuidV4();
 
         //Note actions
         if (text || title) {
             dispatch(writeNote(title, text, uniqueId, date, time));
-            if (isEditing) {
-                dispatch(editNote(uniqueId));
-            } else {
-                dispatch(saveNote());
-            }
-
+            
+            
+            if (isEditing)  dispatch(editNote(uniqueId));
+            else dispatch(saveNote());
 
             //Reset input fields
             setTitle("");

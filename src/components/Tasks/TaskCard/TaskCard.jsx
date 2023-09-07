@@ -1,25 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-import { Link } from 'react-router-dom'
 import { DeleteButton } from '../../SharedComponents/DeleteButton/DeleteButton'
-
+import { EditButton } from '../../SharedComponents/EditButton/EditButton';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTask, markComplete } from '../../../redux/actions/taskActions';
 
 
-import { AiOutlineEdit } from 'react-icons/ai';
-import { IconContext } from 'react-icons';
 
-
-
-function EditButton({ id }) {
-  return <Link to={`/tasks/edit/${id}`} title='Edit'>
-    <IconContext.Provider value={{ className: "border rounded border-gray-200  text-xl" }}>
-      <AiOutlineEdit />
-    </IconContext.Provider>
-  </Link>;
-}
 
 
 
@@ -28,10 +16,12 @@ export function TaskCard({ id, text, type }) {
 
   const dispatch = useDispatch();
   const [completed, setCompleted] = useState(false);
+  const checkedRef = useRef();
+
 
   function handleCheckbox(e) {
     e.stopPropagation();
-    setCompleted(prev => !prev);
+    setCompleted(prev => !prev)
     dispatch(markComplete(id));
   }
 
@@ -42,22 +32,20 @@ export function TaskCard({ id, text, type }) {
   }
 
   return (
-
-
     <div className={`flex flex-col justify-between gap-1.5 ${type === "complete" ? "bg-neutral-300 shadow-none" : "bg-neutral-100 shadow-md"}  shadow-gray-100 px-4 py-2 rounded-lg max-h-[50px] min-h-[50px]`}>
 
-      <div className='flex justify-between  gap-4  items-baseline p-2'>
+      <div className='flex relative justify-between  gap-4  items-baseline p-2'>
 
-        <label htmlFor={id} className='cursor-pointer w-full'>
-          <input id={id} type='checkbox' checked={(completed || type === "complete")} onChange={handleCheckbox} className='accent-orange-200 hover:accent-orange-200' />
-          <span className={`${type === "complete" ? "line-through text-neutral-500" : "text-neutral-900"} text-sm font-semibold mx-2   overflow-hidden truncate select-none`}>{text}</span>
+        <label htmlFor={id} className='cursor-pointer w-max flex gap-2'>
+          <input id={id} ref={checkedRef} type='checkbox' checked={(completed || type === "complete")} onChange={handleCheckbox} className='accent-orange-200 hover:accent-orange-200' />
+          <p className={`${type === "complete" ? "line-through text-neutral-500" : "text-neutral-900"} text-sm font-semibold  overflow-hidden truncate select-none`}>{text}</p>
         </label>
 
-        <div className=' flex justify-center items-baseline gap-2 '>
-          <EditButton id={id} />
+
+        <div className={` flex absolute top-2 right-0 bg-transparent justify-center items-baseline gap-2 `}>
+          {!(type === "complete") && <EditButton id={id} />}
           <DeleteButton handleDelete={handleDelete} />
         </div>
-
       </div>
 
     </div>

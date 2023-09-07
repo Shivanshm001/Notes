@@ -11,8 +11,7 @@ import { EditNote } from './components/Notes/EditNote/EditNote'
 import { Tasks } from './components/Tasks/Tasks'
 import { TasksList } from './components/Tasks/TasksList/TasksList'
 import { CreateTask } from './components/Tasks/CreateTask/CreateTask'
-import { EditTask } from './components/Tasks/EditTask/EditTask'
-
+import { EditTask } from './components/Tasks/EditTask/EditTask';
 
 
 //Redux
@@ -40,7 +39,6 @@ export function App() {
           <Route path='/tasks' element={<TasksList />} />
           <Route path='/tasks/create' element={<CreateTask />} />
           {
-            allTasks &&
             <Route path='/tasks/edit/:taskId' element={<EditTask />} />
           }
         </Route>
