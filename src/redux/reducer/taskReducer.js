@@ -56,20 +56,19 @@ export const taskReducer = (state = initialState, action) => {
             const allPendingTasks = new Map(state.pendingTasks);
             const allCompletedTasks = new Map(state.completedTasks);
 
-            if (payload.type === "pending") {
-                if (allPendingTasks.has(payload.id)) {
-                    allPendingTasks.delete(payload.id)
-                }
 
+            if (allPendingTasks.has(payload.id)) {
+                allPendingTasks.delete(payload.id);
                 return {
                     ...state,
                     pendingTasks: allPendingTasks
                 }
+
+
+
             }
-            else if (payload.type === "complete") {
-                if (allCompletedTasks.has(payload.id)) {
-                    allCompletedTasks.delete(payload.id);
-                }
+            else if (allCompletedTasks.has(payload.id)) {
+                allCompletedTasks.delete(payload.id);
                 return {
                     ...state,
                     completedTasks: allCompletedTasks

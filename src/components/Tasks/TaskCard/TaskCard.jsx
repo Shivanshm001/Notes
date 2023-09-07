@@ -9,14 +9,12 @@ import { deleteTask, markComplete } from '../../../redux/actions/taskActions';
 
 
 
-
-
-
 export function TaskCard({ id, text, type }) {
 
   const dispatch = useDispatch();
   const [completed, setCompleted] = useState(false);
   const checkedRef = useRef();
+  const {pendingTasks, completedTasks} = useSelector(state => state.tasks);
 
 
   function handleCheckbox(e) {
@@ -27,7 +25,10 @@ export function TaskCard({ id, text, type }) {
 
   function handleDelete(e) {
     e.preventDefault();
-    dispatch(deleteTask(id))
+    e.stopPropagation();
+    dispatch(deleteTask(id));
+    console.log(pendingTasks);
+    console.log(completedTasks)
 
   }
 
