@@ -65,15 +65,14 @@ export function NoteForm({ isEditing }) {
         //Note actions
         if (text || title) {
             dispatch(writeNote(title, text, uniqueId, date, time));
-            
-            
-            if (isEditing)  dispatch(editNote(uniqueId));
-            else dispatch(saveNote());
 
-            //Reset input fields
-            setTitle("");
-            setText("");
+
+            if (isEditing) dispatch(editNote(uniqueId));
+            else dispatch(saveNote());
         }
+        //Reset input fields
+        setTitle("");
+        setText("");
 
         //After creating succefully navigate back to home page
         navigate("/notes");

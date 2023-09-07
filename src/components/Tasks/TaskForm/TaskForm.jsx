@@ -58,7 +58,6 @@ export function TaskForm({ isEditing }) {
         navigate("/tasks");
     }
 
-    console.log(text, oldTask);
 
     return (
         <form onSubmit={handleTask} autoComplete='off' className='flex flex-col justify-between min-h-[150px]'>

@@ -27,9 +27,6 @@ export function TaskCard({ id, text, type }) {
     e.preventDefault();
     e.stopPropagation();
     dispatch(deleteTask(id));
-    console.log(pendingTasks);
-    console.log(completedTasks)
-
   }
 
   return (

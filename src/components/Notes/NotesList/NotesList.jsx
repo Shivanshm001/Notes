@@ -17,9 +17,11 @@ import { CreateButton } from '../../SharedComponents/CreateButton/CreateButton';
 
 export function NotesList() {
     useDocumentTitle("Notes");
-    const { allNotes } = useSelector(state => state.notes);
+    const { allNotes, filteredNotes } = useSelector(state => state.notes);
 
-
+    function convertMapToArray(noteAsMap) {
+        return Array.from(noteAsMap.values());
+    }
 
     return (
         <>
@@ -30,15 +32,11 @@ export function NotesList() {
                 </div>
 
                 <div className=' w-full min-h-screen flex flex-col gap-4 p-2 px-4'>
-                    {allNotes
-                        ? Array.from(allNotes.values()).map(note => {
-                            return (
-                                <NoteCard {...note} key={note.id} />
-                            );
-                        }).reverse()
-                        : <div>
-                            <p>Create new note.</p>
-                        </div>}
+                    {
+                        (filteredNotes.size <= 0)
+                            ? convertMapToArray(allNotes).map(note => <NoteCard {...note} key={note.id} />).reverse()
+                            : convertMapToArray(filteredNotes).map(note => <NoteCard {...note} key={note.id} />).reverse()
+                    }
                 </div>
                 <CreateButton type={"notes"} />
             </div>

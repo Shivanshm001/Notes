@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { IconContext } from 'react-icons';
 import { BiSearch } from 'react-icons/bi';
@@ -11,24 +11,19 @@ import { filterNotes, updateSearchQuery } from '../../../../redux/actions/noteAc
 export function SearchBar() {
     const [search, setSearch] = useState("");
 
-    const {
-        allNotes, filteredNotes, searchQuery
-    } = useSelector(state => state.notes);
 
     const dispatch = useDispatch();
 
 
-    function handleSearch(e) {
-        e.preventDefault();
-
+    useEffect(() => {
         dispatch(updateSearchQuery(search));
         dispatch(filterNotes());
-    }
+    }, [search])
 
 
     return (
 
-        <form className='w-full bg-gray-300 flex p-1 px-2 items-center justify-center rounded-full' autoComplete='off' onSubmit={handleSearch}>
+        <form className='w-full bg-gray-300 flex p-1 px-2 items-center justify-center rounded-full' autoComplete='off' onSubmit={(e) => e.preventDefault()}>
             <div>
                 <button className='pt-2'>
                     <IconContext.Provider value={{ className: "text-lg text-neutral-500" }}>

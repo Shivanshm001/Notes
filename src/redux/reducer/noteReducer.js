@@ -67,7 +67,28 @@ export const noteReducer = (state = initialState, action) => {
             searchQuery: payload.query
         }
 
+        case NOTES.filterNotes: {
+            const allNotes = new Map(state.allNotes);
+            const filteredNotes = new Map();
+            if (state.searchQuery) {
+                const notes = allNotes.values();
+                const filteredNotesArray = Array.from(notes).filter(note => {
+                    if (note){
+                        if(note.title) return note.title.includes(state.searchQuery);
+                        if(note.text) return note.text.includes(state.searchQuery);
+                    }
+                });
 
+                filteredNotesArray.forEach(note => {
+                    filteredNotes.set(note.id, note);
+                });
+            }
+
+            return {
+                ...state,
+                filteredNotes: filteredNotes
+            }
+        }
         default: return state;
     };
 }
